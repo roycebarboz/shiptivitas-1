@@ -47,7 +47,7 @@ Acceptance Criteria
 - Tasks were displayed in a single swimlane (Backlog), but there was no functionality to move them between swimlanes or update their status.
 
 <img src="public\home.png" alt="Initial Board State" />
-
+<img src="public\before shipping.png" alt="Initial Board State" />
 ---
 
 ### My Task
@@ -57,14 +57,14 @@ Acceptance Criteria
    - Used the `getClients()` function to fetch all tasks (clients) and set their initial status to **Backlog** when the board loads.
    - Divided the tasks into three categories: `backlog`, `inProgress`, and `complete`.
 
-   <img src="images/board-initial-state.png" alt="Initial Board State" />
+   <img src="public\shipping_1.png" alt="Initial Board State" />
 
 2. **Implemented Drag-and-Drop**:
 
    - Integrated the **Dragula** library to enable drag-and-drop functionality between the three swimlanes (columns).
    - Configured Dragula to listen for the `drop` event and update the task's status accordingly.
 
-   <img src="images/drag-and-drop.png" alt="Drag and Drop Example" />
+   <img src="images/shipping_2.png" alt="Initial Board State" />" alt="Drag and Drop Example" />
 
 3. **Updated Task Status on Drop**:
 
