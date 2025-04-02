@@ -50,7 +50,7 @@ Acceptance Criteria
 <img src="public\before shipping.png" alt="Initial Board State" />
 ---
 
-### My Task
+### After my Task
 
 1. **Initialized the Board State**:
 
@@ -59,30 +59,14 @@ Acceptance Criteria
 
    <img src="public\shipping_1.png" alt="Initial Board State" />
 
+---
+
 2. **Implemented Drag-and-Drop**:
 
    - Integrated the **Dragula** library to enable drag-and-drop functionality between the three swimlanes (columns).
    - Configured Dragula to listen for the `drop` event and update the task's status accordingly.
 
-   <img src="images/shipping_2.png" alt="Initial Board State" />" alt="Drag and Drop Example" />
-
-3. **Updated Task Status on Drop**:
-
-   - Wrote the `updateClient()` function to:
-     - Identify which column (swimlane) the task was dropped into.
-     - Update the task's status (`backlog`, `in-progress`, or `complete`) based on the target column.
-     - Reorder tasks in the new column while maintaining their order.
-
-   <img src="images/task-status-update.png" alt="Task Status Update" />
-
-4. **Added Visual Feedback**:
-
-   - Changed the color of the task cards based on their status:
-     - **Backlog**: Default color.
-     - **In Progress**: Yellow.
-     - **Complete**: Green.
-
-   <img src="images/task-color-change.png" alt="Task Color Change" />
+   <img src="public/shipping_2.png" alt="Drag and Drop Example" />"
 
 ---
 
