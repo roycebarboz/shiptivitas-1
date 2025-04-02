@@ -6,21 +6,15 @@
   <img src="https://s3-ap-southeast-2.amazonaws.com/insidesherpa-assets/yc/workatastartup_logo_orange-c2a27f6374f9395166ee9906e2e0873af835b3c6132ae6aa0543582298567041.svg"></a>
 </p>
 
-
 <p align='center'> 
   <b><a href="#task"> Task Overview </a> </b>
   | 
-  <b><a href="#installation"> Installation </a></b>
-  |
-  <b><a href="https://www.insidesherpa.com/modules/oRMogWRHeewqHzA7u/58dLdeDgbwf9Ste3j"> Link to Module 1 </a></b>
-  |
-  <b><a href="https://www.insidesherpa.com/virtual-internships/prototype/oRMogWRHeewqHzA7u/College%20Students%3A%20Learn%20how%20to%20work%20at%20a%20YC%20startup" target="_blank"> Link to Y Combinator Program </a></b>
-
-           
+  <b><a href="#work"> My Work </a></b>
+  |           
 </p>
 
+# Introduction
 
-# Introduction 
 <p> 
 <b> College Students: 
   Learn how to work at a Y Combinator startup </b>
@@ -35,6 +29,7 @@ Help update the frontend of a new productivity tool for shipping.
 <b> Aim: </b> Your task is to take the base shipping productivity tool and add in the ability for the new feature, the kanban board, to move shipping requests, to two new lane statuses (in-progress and complete). <b><i> Don't worry about any backend updates for now.</i></b>
 <br><br>
 Acceptance Criteria
+
 <ul>
 <li> In the "Shipping Requests" tab of the application, all tasks should show in the backlog swimlane.</li>
 <li> There should be 3 swimlanes.</li>
@@ -42,39 +37,58 @@ Acceptance Criteria
 <li> When a card changes swimlane, it should change color </li>
 </ul>
 
-<h2 id="installation"> Installation </h2>
+---
 
-1. Clone the Shiptivity frontend repository
-2. Make the necessary changes to the code (frontend only) and make use of the <a href="#dragula"> Dragula tool </a>
+<h2 id="work">What I Have Done</h2>
 
-## Available Scripts
+### Before My Task
 
-In the project directory, you can run:
+- The application already had a basic structure for the "Shipping Requests" tab.
+- Tasks were displayed in a single swimlane (Backlog), but there was no functionality to move them between swimlanes or update their status.
 
-### `npm start`
+<img src="public\home.png" alt="Initial Board State" />
 
-this runs the app in the development mode.
-<br>Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+### My Task
 
-We have loaded some clients data in Board.js.
-Each client is an object of
-interface Client {
-  id: number,
-  name: string,
-  description: string,
-  status: 'backlog' | 'in-progress' | 'complete,
-}
+1. **Initialized the Board State**:
 
-<p id="dragula">
-The Dragula library has been installed, you can use it by importing it on top of each file that you need
-<p> 
+   - Used the `getClients()` function to fetch all tasks (clients) and set their initial status to **Backlog** when the board loads.
+   - Divided the tasks into three categories: `backlog`, `inProgress`, and `complete`.
 
-### `import Dragula from 'dragula';`
+   <img src="images/board-initial-state.png" alt="Initial Board State" />
 
-then use it by calling `Dragula` directly.
+2. **Implemented Drag-and-Drop**:
 
-Visit Dragula repository on github for more information
-[https://github.com/bevacqua/dragula](https://github.com/bevacqua/dragula)
+   - Integrated the **Dragula** library to enable drag-and-drop functionality between the three swimlanes (columns).
+   - Configured Dragula to listen for the `drop` event and update the task's status accordingly.
+
+   <img src="images/drag-and-drop.png" alt="Drag and Drop Example" />
+
+3. **Updated Task Status on Drop**:
+
+   - Wrote the `updateClient()` function to:
+     - Identify which column (swimlane) the task was dropped into.
+     - Update the task's status (`backlog`, `in-progress`, or `complete`) based on the target column.
+     - Reorder tasks in the new column while maintaining their order.
+
+   <img src="images/task-status-update.png" alt="Task Status Update" />
+
+4. **Added Visual Feedback**:
+
+   - Changed the color of the task cards based on their status:
+     - **Backlog**: Default color.
+     - **In Progress**: Yellow.
+     - **Complete**: Green.
+
+   <img src="images/task-color-change.png" alt="Task Color Change" />
+
+---
+
+### After My Task
+
+- The kanban board now has full drag-and-drop functionality.
+- Tasks can be moved between swimlanes, and their status updates dynamically.
+- The visual feedback (color changes) makes it easy to identify the status of each task at a glance.
+- The board meets all the acceptance criteria outlined in the task description.
