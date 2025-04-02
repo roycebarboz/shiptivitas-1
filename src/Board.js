@@ -22,83 +22,73 @@ export default class Board extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // Reset all tasks to the "backlog" swimlane
-    const allClients = this.getClients().map(client => ({ ...client, status: 'backlog' }));
-    this.setState({
-      clients: {
-        backlog: allClients,
-        inProgress: [],
-        complete: [],
-      },
-    });
+  // componentDidMount() {
 
-    // Initialize Dragula with options to prevent DOM conflicts
-    const drake = Dragula([
-      this.swimlanes.backlog.current,
-      this.swimlanes.inProgress.current,
-      this.swimlanes.complete.current,
-    ], {
-      removeOnSpill: false,
-      copy: false
-    });
+  //   const allClients = this.getClients().map(client => ({ ...client, status: 'backlog' }));
+  //   this.setState({
+  //     clients: {
+  //       backlog: allClients,
+  //       inProgress: [],
+  //       complete: [],
+  //     },
+  //   });
 
-    // Keep track of a card being dragged
-    let draggedItem = null;
-
-    drake.on('drag', (el) => {
-      // Store reference to the dragged item
-      draggedItem = el;
-    });
-
-    drake.on('dragend', () => {
-      // Clear reference when drag ends
-      draggedItem = null;
-    });
-
-    drake.on('drop', (el, target, source) => {
-      // Get required data for state update
-      const cardId = el.getAttribute('data-id');
-      const targetLane = target.getAttribute('data-lane');
-      const sourceLane = source.getAttribute('data-lane');
-      
-      // Only update if moved to a different lane
-      if (sourceLane !== targetLane) {
-        // Create a copy of the current state
-        const updatedClients = { ...this.state.clients };
-        
-        // Find the client in the source lane
-        const clientIndex = updatedClients[sourceLane].findIndex(client => client.id === cardId);
-        if (clientIndex === -1) return;
-        
-        // Get the client and update its status
-        const movedClient = { ...updatedClients[sourceLane][clientIndex] };
-        movedClient.status = targetLane === 'inProgress' ? 'in-progress' : targetLane;
-        
-        // Remove from source lane
-        updatedClients[sourceLane] = updatedClients[sourceLane].filter(client => client.id !== cardId);
-        
-        // Add to target lane
-        updatedClients[targetLane] = [...updatedClients[targetLane], movedClient];
-        
-        // Cancel Dragula's DOM manipulation and let React handle it
-        drake.cancel(true);
-        
-        // Update state - this will trigger React to re-render the proper DOM
-        this.setState({ clients: updatedClients });
-      }
-    });
-
-    // Save drake instance for potential cleanup
-    this.drake = drake;
-  }
-
-  // Add componentWillUnmount to clean up
-  componentWillUnmount() {
-    if (this.drake) {
-      this.drake.destroy();
-    }
-  }
+  //   this.drake = Dragula([
+  //     this.swimlanes.backlog.current,
+  //     this.swimlanes.inProgress.current,
+  //     this.swimlanes.complete.current,
+  //   ]);
+  //   this.drake.on('drop', (el, target, source, sibling) => this.updateClient(el, target, source, sibling));
+  // }
+  
+  // componentWillUnmount() {
+  //   this.drake.remove();
+  // }
+  
+  // /**
+  //  * Change the status of client when a Card is moved
+  //  */
+  // updateClient(el, target, _, sibling) {
+  //   // Reverting DOM changes from Dragula
+  //   this.drake.cancel(true);
+  
+  //   // Find out which swimlane the Card was moved to
+  //   let targetSwimlane = 'backlog';
+  //   if (target === this.swimlanes.inProgress.current) {
+  //     targetSwimlane = 'in-progress';
+  //   } else if (target === this.swimlanes.complete.current) {
+  //     targetSwimlane = 'complete';
+  //   }
+  
+  //   // Create a new clients array
+  //   const clientsList = [
+  //     ...this.state.clients.backlog,
+  //     ...this.state.clients.inProgress,
+  //     ...this.state.clients.complete,
+  //   ];
+  //   const clientThatMoved = clientsList.find(client => client.id === el.dataset.id);
+  //   const clientThatMovedClone = {
+  //     ...clientThatMoved,
+  //     status: targetSwimlane,
+  //   };
+  
+  //   // Remove ClientThatMoved from the clientsList
+  //   const updatedClients = clientsList.filter(client => client.id !== clientThatMovedClone.id);
+  
+  //   // Place ClientThatMoved just before the sibling client, keeping the order
+  //   const index = updatedClients.findIndex(client => sibling && client.id === sibling.dataset.id);
+  //   updatedClients.splice(index === -1 ? updatedClients.length : index , 0, clientThatMovedClone);
+  
+  //   // Update React state to reflect changes
+  //   this.setState({
+  //     clients: {
+  //       backlog: updatedClients.filter(client => !client.status || client.status === 'backlog'),
+  //       inProgress: updatedClients.filter(client => client.status && client.status === 'in-progress'),
+  //       complete: updatedClients.filter(client => client.status && client.status === 'complete'),
+  //     }
+  //   });
+  // }
+  
 
   getClients() {
     return [
